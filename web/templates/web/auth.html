@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet" />
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+        <title>Вход</title>
+    </head>
+    <body>
+        <div class="v23_5">
+        	<div class="v3_25">
+                <div class="v2_3"></div>
+                <span class="v2_4">ReviewStat</span><span class="v3_6">Вход</span>
+                <div class="v3_5"></div>
+                <span class="v3_7">Регистрация</span>
+            </div>
+            <div class="v1_2"></div>
+            <div class="v3_26">
+                <div class="v3_9"></div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="email" name="email" required id="id_email" class="v3_11">
+                    <span class="v3_18">Электронная почта</span><span class="v3_10">Вход</span>
+                    <input type="text" name="password" required id="id_password" class="v3_12">
+                    <span class="v3_19">Пароль</span>
+                    <div class="v23_4">
+                        <div class="v3_14"></div>
+                        <button class="v3_23">Войти</button>
+                    </div>
+                </form>
+            </div>
+            <div class="v3_71">
+                <div class="v3_8"></div>
+                <span class="v3_57">Политика конфинденциальности</span><span class="v3_58">Задать вопрос</span>
+                <div class="v3_60"></div>
+                <div class="v3_66"></div>
+            </div>
+        </div>
+    </body>
+</html>
