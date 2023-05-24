@@ -57,7 +57,7 @@ body {
   top: 21px;
   left: 37px;
   font-family: Nunito Sans;
-  font-weight: ExtraBold;
+  font-weight: bold;
   font-size: 40px;
   opacity: 1;
   text-align: left;
@@ -208,6 +208,11 @@ body {
   top: 294px;
   left: 128px;
   overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  text-align: center;
 }
 .v3_14 {
   width: 315px;
@@ -222,6 +227,7 @@ body {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   overflow: hidden;
+  text-align: center;
 }
 .v3_23 {
   width: 315px;
@@ -229,13 +235,17 @@ body {
   background: rgba(174,182,255,1);
   position: absolute;
   top: 0px;
-  left: 110px;
+  left: 0px;
   font-family: Nunito Sans;
   font-weight: Bold;
   font-size: 32px;
   opacity: 1;
-  text-align: left;
+  text-align: center;
   overflow: hidden;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   border: #1b1b1b;
 }
 .v3_71 {

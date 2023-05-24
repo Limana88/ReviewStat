@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet" />
-<!--        <link href="../static/css/main.css" rel="stylesheet" />-->
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         <title>Регистрация</title>
@@ -14,6 +13,7 @@
                 <div class="v3_28"></div>
                 <span class="v3_29">ReviewStat</span>
                 <span class="v3_30">Вход</span>
+                <a href="{% url 'auth' %}" class="v3_30">Вход</a>
                 <div class="v3_31"></div>
                 <span class="v3_32">Регистрация</span>
             </div>
