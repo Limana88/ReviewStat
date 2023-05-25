@@ -135,3 +135,6 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'auth'
 
+MEDIA_ROOT = 'media/'
+MEDIA_URL = 'media/'
+

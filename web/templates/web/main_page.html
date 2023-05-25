@@ -28,11 +28,21 @@
             </div>
             <div class="v3_125">
                 <div class="v3_126"></div>
+                {% if analyze %}
+                    <div class="img">
+                        <img src="{{ analyze.avg_rating.url }}"><br>
+                        <img src="{{ analyze.rating_distribution.url }}"><br>
+                        <img src="{{ analyze.bigrams_bad_grades.url }}"><br>
+                        <img src="{{ analyze.bigrams_good_grades.url }}">
+                    </div>
+                {% endif %}
                 <div class="v3_138"><span class="v3_139">Название компании</span><span class="v3_129">{{ profile.name_company }}</span></div>
             </div>
             <div class="v3_198">
-                <div class="v3_199"></div>
-                <span class="v3_200">Провести анализ</span>
+                {% if not analyze %}
+                    <div class="v3_199"></div>
+                    <a href="{% url 'analyze_view' %}" class="v3_200">Провести анализ</a>
+                {% endif %}
             </div>
         </div>
     </body>

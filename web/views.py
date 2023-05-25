@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from web.forms import RegistrationForm, AuthForm
-from web.models import UserProfile
+from web.models import UserProfile, Analyze
 
 from django.contrib.auth import get_user_model, authenticate, login, logout
 
@@ -72,7 +72,7 @@ def profile_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect("welcome")
+    return redirect("auth")
 
 
 @login_required
@@ -80,3 +80,13 @@ def delete_profile_view(request):
     user = get_object_or_404(User, id=request.user.id)
     user.delete()
     return redirect('registration')
+
+@login_required
+def analyze_view(request):
+    user = get_object_or_404(User, id=request.user.id)
+    profile = get_object_or_404(UserProfile, user=user)
+    print(profile.name_company)
+    analyze = get_object_or_404(Analyze, name_company=profile.name_company)
+    return render(request, 'web/main_page.html', {'profile': profile, 'analyze': analyze})
+
+

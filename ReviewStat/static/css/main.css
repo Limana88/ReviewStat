@@ -166,7 +166,7 @@ body {
   position: relative;
   top: 0px;
   left: 0px;
-  overflow: hidden;
+  /*overflow: scroll;*/
 }
 .v3_24 {
   width: 100%;
@@ -176,7 +176,7 @@ body {
   position: relative;
   top: 0px;
   left: 0px;
-  overflow: hidden;
+  /*overflow: scroll;*/
 }
 .v3_34 {
   width: 638px;
@@ -740,7 +740,7 @@ body {
   position: absolute;
   top: 110px;
   left: 20px;
-  overflow: hidden;
+  /*overflow: scroll;*/
 }
 .v3_126 {
   width: 100%;
@@ -754,7 +754,7 @@ body {
   border-top-right-radius: 20px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  overflow: hidden;
+  /*overflow: scroll;*/
 }
 .v3_138 {
   width: 193px;
@@ -856,4 +856,17 @@ body {
   top: 36px;
   left: 584px;
   overflow: hidden;
+}
+.img {
+  width: 10px;
+  height: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 110px;
+  left: 20px;
+  /*overflow: scroll;*/
+  /*overflow-y: scroll;*/
 }
