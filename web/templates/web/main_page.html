@@ -12,7 +12,7 @@
             <div class="v3_27">
                 <div class="v3_28"></div>
                 <a href="{% url 'profile' %}" class="v3_121">Мой профиль</a>
-                <span class="v3_29">ReviewStat</span>
+                <span class="v3_29">TimeDealer</span>
                 <a href="{% url 'logout' %}" class="v3_30">Выйти</a>
                 <div class="v3_31"></div>
                 <a href="{% url 'main' %}" class="v3_116">Главная страница</a>
@@ -20,23 +20,23 @@
                 <div class="v3_156"></div>
             </div>
             <div class="v3_24"></div>
+            <div class="v3_125">
+                <div class="v3_126"></div>
+                {% if analyze %}
+                    <div class="img">
+                        <img src="{{ analyze.avg_rating.url }}" class="displayed media_1" alt="Среднемесячный рейтинг"><br>
+                        <img src="{{ analyze.rating_distribution.url }}" class="displayed media_3" alt="Распределение рейтинга"><br>
+                        <img src="{{ analyze.bigrams_bad_grades.url }}" class="displayed media_2" alt="Биграммы для оценок 1-3"><br>
+                        <img src="{{ analyze.bigrams_good_grades.url }}" class="displayed media_2" alt="Биграммы для оценок 4-5">
+                    </div>
+                {% endif %}
+                <div class="v3_138"><span class="v3_139">Название компании</span><span class="v3_129">{{ profile.name_company }}</span></div>
+            </div>
             <div class="v3_72">
                 <div class="v3_73"></div>
                 <span class="v3_74">Политика конфинденциальности</span><span class="v3_75">Задать вопрос</span>
                 <div class="v3_76"></div>
                 <div class="v3_77"></div>
-            </div>
-            <div class="v3_125">
-                <div class="v3_126"></div>
-                {% if analyze %}
-                    <div class="img">
-                        <img src="{{ analyze.avg_rating.url }}"><br>
-                        <img src="{{ analyze.rating_distribution.url }}"><br>
-                        <img src="{{ analyze.bigrams_bad_grades.url }}"><br>
-                        <img src="{{ analyze.bigrams_good_grades.url }}">
-                    </div>
-                {% endif %}
-                <div class="v3_138"><span class="v3_139">Название компании</span><span class="v3_129">{{ profile.name_company }}</span></div>
             </div>
             <div class="v3_198">
                 {% if not analyze %}
