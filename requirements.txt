@@ -1,0 +1,7 @@
+Django==4.2.1
+psycopg2==2.9.6
+Pillow==9.5.0
+matplotlib==3.7.1
+googletrans==3.0.0
+nltk==3.8.1
+pandas==2.0.1

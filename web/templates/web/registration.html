@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet" />
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <title>Регистрация</title>
+    </head>
+    <body>
+        <div class="v21_3">
+            <div class="v3_27">
+                <div class="v3_28"></div>
+                <span class="v3_29">ReviewStat</span>
+                <span class="v3_30">Вход</span>
+                <a href="{% url 'auth' %}" class="v3_30">Вход</a>
+                <div class="v3_31"></div>
+                <span class="v3_32">Регистрация</span>
+            </div>
+            <div class="v3_24"></div>
+            <div class="v3_34">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="v3_35"></div>
+                    <div class="v3_47">
+                        <input type="email" name="email" required id="id_email" class="v3_36">
+                        <span class="v3_37">Электронная почта</span>
+                    </div>
+                     <span class="v3_38">Регистрация</span>
+                    <div class="v3_48">
+                        <input type="text" name="password" required id="id_password" class="v3_42">
+                        <span class="v3_43">Пароль</span>
+                    </div>
+                    <div class="v3_52">
+                        <input type="text" name="name_company" required id="id_name_company" class="v3_53">
+                        <span class="v3_54">Название компании</span>
+                    </div>
+                    <div class="v3_55">
+                        <div class="v3_41"></div>
+                        <button class="v3_41">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+            <div class="v3_72">
+                <div class="v3_73"></div>
+                <span class="v3_74">Политика конфинденциальности</span><span class="v3_75">Задать вопрос</span>
+                <div class="v3_76"></div>
+                <div class="v3_77"></div>
+            </div>
+        </div>
+    </body>
+</html>

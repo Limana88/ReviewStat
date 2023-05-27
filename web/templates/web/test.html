@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <style>
+        .img {
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+      <div class="img">
+          <img src="{{ analyze.avg_rating.url }}" alt="My Image" class="img">
+      </div>
+</body>
+</html>
