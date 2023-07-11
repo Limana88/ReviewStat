@@ -3,12 +3,65 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap" rel="stylesheet" />
         {% load static %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         <meta charset="UTF-8">
         <title>Главная страница</title>
     </head>
     <body>
         <div class="v21_3">
+            <div class="v3_24"></div>
+            <div class="v3_125">
+                <div class="v3_126"></div>
+                {% if analyze %}
+                    <div class="img">
+<!--                        <img src="{{ analyze.avg_rating.url }}" class="displayed media_1" alt="Среднемесячный рейтинг"><br>-->
+                        <div>
+                            <canvas id="myChart2"></canvas>
+                        </div>
+                        <script type="module">
+                            import { initializeChart } from "{% static 'js/avg_rating_script.js' %}";
+                            var data = {{ data_avg_rating|safe }};
+                            initializeChart(data);
+                        </script>
+                        <div>
+                            <canvas id="myChart1"></canvas>
+                        </div>
+                        <script type="module">
+                            import { initializeChart } from "{% static 'js/rating_distribution_script.js' %}";
+                            var data = {{ data_rating_distribution|safe }};
+                            initializeChart(data);
+                        </script>
+<!--                        <div>-->
+<!--                            <canvas id="myChart3"></canvas>-->
+<!--                        </div>-->
+<!--                        <script type="module">-->
+<!--                            import { initializeChart } from "{% static 'js/bigrams_script.js' %}";-->
+<!--                            var data = {{ data_bigrams_bad_grades|safe }};-->
+<!--                            initializeChart(data);-->
+<!--                        </script>-->
+                        <div>
+                            <canvas id="myChart3"></canvas>
+                        </div>
+                        <script type="module">
+                            import { initializeChart } from "{% static 'js/bigrams_bad_grades_script.js' %}";
+                            var data = {{ data_bigrams_bad_grades|safe }};
+                            initializeChart(data);
+                        </script>
+                        <div>
+                            <canvas id="myChart4"></canvas>
+                        </div>
+                        <script type="module">
+                            import { initializeChart } from "{% static 'js/bigrams_good_grades_script.js' %}";
+                            var data = {{ data_bigrams_good_grades|safe }};
+                            initializeChart(data);
+                        </script>
+<!--                        <canvas id="chart1" data-data-json="{{ data_bigrams_bad_grades|safe }}"></canvas>-->
+<!--                        <canvas id="chart2" data-data-json="{{ data_bigrams_good_grades|safe }}"></canvas>-->
+                    </div>
+                {% endif %}
+                <div class="v3_138"><span class="v3_139">Название компании</span><span class="v3_129">{{ profile.name_company }}</span></div>
+            </div>
             <div class="v3_27">
                 <div class="v3_28"></div>
                 <a href="{% url 'profile' %}" class="v3_121">Мой профиль</a>
@@ -18,19 +71,6 @@
                 <a href="{% url 'main' %}" class="v3_116">Главная страница</a>
                 <div class="v3_158"></div>
                 <div class="v3_156"></div>
-            </div>
-            <div class="v3_24"></div>
-            <div class="v3_125">
-                <div class="v3_126"></div>
-                {% if analyze %}
-                    <div class="img">
-                        <img src="{{ analyze.avg_rating.url }}" class="displayed media_1" alt="Среднемесячный рейтинг"><br>
-                        <img src="{{ analyze.rating_distribution.url }}" class="displayed media_3" alt="Распределение рейтинга"><br>
-                        <img src="{{ analyze.bigrams_bad_grades.url }}" class="displayed media_2" alt="Биграммы для оценок 1-3"><br>
-                        <img src="{{ analyze.bigrams_good_grades.url }}" class="displayed media_2" alt="Биграммы для оценок 4-5">
-                    </div>
-                {% endif %}
-                <div class="v3_138"><span class="v3_139">Название компании</span><span class="v3_129">{{ profile.name_company }}</span></div>
             </div>
             <div class="v3_72">
                 <div class="v3_73"></div>

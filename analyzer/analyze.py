@@ -12,6 +12,13 @@ class Analyze:
     @staticmethod
     def count_avg_rating(name_company, id):
         trans_table = {ord('('): None, ord('\''): None, ord(')'): None, ord(','): None}
+        conn = psycopg2.connect(
+            user="postgres",
+            password="qwerty1234",
+            host="localhost",
+            port="5432",
+            database="test"
+        )
         cursor = conn.cursor()
         cursor.execute(f"SELECT date FROM web_review where company_id = {id} order by id")
         rows = cursor.fetchall()
@@ -62,19 +69,41 @@ class Analyze:
             avg_rate = mean(arr)
             dict_rate[key] = round(avg_rate, 2)
 
-        labels = dict_rate.keys()
-        plt.figure(figsize=(9, 8.15))
-        plt.plot(labels, dict_rate.values())
-        plt.xlabel('Месяца')
-        plt.xticks(rotation=45)
-        plt.ylabel('Средний рейтинг')
-        plt.title('Среднемесячный рейтинг')
+        labels = list(dict_rate.keys())
 
-        plt.savefig(f'media/{name_company}/{name_company}_avg_rating.png')
+        insert_query = '''
+            insert into web_dataanalyze (name_analyze, title, labels, values, name_company, company_id)
+            values (%s, %s, %s, %s, %s, %s)
+        '''
+
+        data = ('Средний рейтинг', 'avg_rating', labels, list(dict_rate.values()), name_company, id)
+
+        cursor.execute(insert_query, data)
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+        # plt.figure(figsize=(9, 8.15))
+        # plt.plot(labels, dict_rate.values())
+        # plt.xlabel('Месяца')
+        # plt.xticks(rotation=45)
+        # plt.ylabel('Средний рейтинг')
+        # plt.title('Среднемесячный рейтинг')
+        #
+        # plt.savefig(f'media/{name_company}/{name_company}_avg_rating.png')
 
     @staticmethod
     def rating_distribution(name_company, id):
         trans_table = {ord('('): None, ord('\''): None, ord(')'): None, ord(','): None}
+        conn = psycopg2.connect(
+            user="postgres",
+            password="qwerty1234",
+            host="localhost",
+            port="5432",
+            database="test"
+        )
         cursor = conn.cursor()
         cursor.execute(f"select count(*) from web_review where rate = 1 and company_id = {id}"
                        "union all select "
@@ -100,16 +129,43 @@ class Analyze:
         plt.ylabel('Количество оценок')
         plt.title('Распределение рейтинга')
 
-        plt.savefig(f'media/{name_company}/{name_company}_rating_distribution.png')
+        insert_query = '''
+            insert into web_dataanalyze (name_analyze, title, labels, values, name_company, company_id)
+            values (%s, %s,  %s, %s, %s, %s)
+        '''
+
+        data = ('Распределение рейтинга', 'rating_distribution', labels, ratings, name_company, id)
+
+        cursor.execute(insert_query, data)
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+        # plt.savefig(f'media/{name_company}/{name_company}_rating_distribution.png')
 
     @staticmethod
     def bigrams(name_company, id, mark):
+        conn = psycopg2.connect(
+            user="postgres",
+            password="qwerty1234",
+            host="localhost",
+            port="5432",
+            database="test"
+        )
         cursor = conn.cursor()
+        name_analyze = ''
+        title = ''
         if mark:
-            cursor.execute(f"select description from web_review where company_id = {id} and rate between 4 and 5 order by id")
+            cursor.execute(
+                f"select description from web_review where company_id = {id} and rate between 4 and 5 order by id")
+            name_analyze = 'Биграммы для отзывов с оценками 4-5'
+            title = 'bigrams_good_grades'
         else:
             cursor.execute(
                 f"select description from web_review where company_id = {id} and rate between 1 and 3 order by id")
+            name_analyze = 'Биграммы для отзывов с оценками 1-3'
+            title = 'bigrams_bad_grades'
         rows = cursor.fetchall()
         reviews = []
 
@@ -141,6 +197,27 @@ class Analyze:
         bigrm_txt = [bi for bi in bigrm]
 
         freqdist = nltk.FreqDist(bigrm_txt)
-        plt.figure(figsize=(20, 5))
-        freqdist.plot(30)
-        plt.show()
+        # plt.figure(figsize=(20, 5))
+        # freqdist.plot(30)
+        # plt.show()
+
+
+        insert_query = '''
+            insert into web_dataanalyze (name_analyze, title, labels, values, name_company, company_id)
+            values (%s, %s, %s, %s, %s, %s)
+        '''
+
+        data = (name_analyze, title, list(freqdist.keys()), list(freqdist.values()), name_company, id)
+
+        cursor.execute(insert_query, data)
+
+        conn.commit()
+
+        cursor.close()
+        conn.close()
+
+
+Analyze.count_avg_rating('beeline', 4)
+Analyze.rating_distribution('beeline', 4)
+Analyze.bigrams('beeline', 4, False)
+Analyze.bigrams('beeline', 4, True)

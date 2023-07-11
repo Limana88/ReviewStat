@@ -138,3 +138,7 @@ LOGIN_URL = 'auth'
 MEDIA_ROOT = 'media/'
 MEDIA_URL = 'media/'
 
+import newrelic.agent
+
+newrelic.agent.initialize('newrelic.ini')
+
