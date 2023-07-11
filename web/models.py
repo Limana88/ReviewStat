@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.fields import ArrayField
+
 
 User = get_user_model()
 
@@ -44,3 +46,13 @@ class Analyze(models.Model):
     rating_share_country = models.ImageField(upload_to='analyze', null=True, blank=True)
     bigrams_bad_grades = models.ImageField(upload_to='analyze', null=True, blank=True)
     bigrams_good_grades = models.ImageField(upload_to='analyze', null=True, blank=True)
+
+
+class DataAnalyze(models.Model):
+    name_analyze = models.CharField(max_length=256, null=True, blank=True)
+    labels = ArrayField(models.CharField(max_length=256, null=True, blank=True))
+    values = ArrayField(models.CharField(max_length=256, null=True, blank=True))
+    name_company = models.CharField(max_length=256, null=True, blank=True)
+    title = models.CharField(max_length=256, null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+

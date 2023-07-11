@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import json
 
 from web.forms import RegistrationForm, AuthForm
-from web.models import UserProfile, Analyze
+from web.models import UserProfile, Analyze, DataAnalyze
 
 from django.contrib.auth import get_user_model, authenticate, login, logout
 
@@ -81,12 +82,63 @@ def delete_profile_view(request):
     user.delete()
     return redirect('registration')
 
+
 @login_required
 def analyze_view(request):
     user = get_object_or_404(User, id=request.user.id)
     profile = get_object_or_404(UserProfile, user=user)
-    print(profile.name_company)
     analyze = get_object_or_404(Analyze, name_company=profile.name_company)
-    return render(request, 'web/main_page.html', {'profile': profile, 'analyze': analyze})
+    data_analyze_rating_distribution = get_object_or_404(DataAnalyze, name_company=profile.name_company, title='rating_distribution')
+    data_analyze_avg_rating = get_object_or_404(DataAnalyze, name_company=profile.name_company, title='avg_rating')
+    data_analyze_bigrams_bad_grades = get_object_or_404(DataAnalyze, name_company=profile.name_company, title='bigrams_bad_grades')
+    data_analyze_bigrams_good_grades = get_object_or_404(DataAnalyze, name_company=profile.name_company,title='bigrams_good_grades')
+
+    data_rating_distribution = {
+        'labels': data_analyze_rating_distribution.labels,
+        'values': data_analyze_rating_distribution.values,
+        'label': data_analyze_rating_distribution.name_analyze
+    }
+    data_avg_rating = {
+        'labels': data_analyze_avg_rating.labels,
+        'values': data_analyze_avg_rating.values,
+        'label': data_analyze_avg_rating.name_analyze
+    }
+
+    data_bigrams_bad_grades = {
+        'labels': data_analyze_bigrams_bad_grades.labels,
+        'values': data_analyze_bigrams_bad_grades.values,
+        'label': data_analyze_bigrams_bad_grades.name_analyze
+    }
+
+    data_bigrams_good_grades = {
+        'labels': data_analyze_bigrams_good_grades.labels,
+        'values': data_analyze_bigrams_good_grades.values,
+        'label': data_analyze_bigrams_good_grades.name_analyze
+    }
+
+    data_json_rating_distribution = json.dumps(data_rating_distribution)
+    data_json_avg_rating = json.dumps(data_avg_rating)
+    data_json_bigrams_bad_grades = json.dumps(data_bigrams_bad_grades)
+    data_json_bigrams_good_grades = json.dumps(data_bigrams_good_grades)
+    return render(request, 'web/main_page.html', {'profile': profile, 'analyze': analyze,
+                                                  'data_rating_distribution': data_json_rating_distribution,
+                                                  'data_avg_rating': data_json_avg_rating,
+                                                  'data_bigrams_bad_grades': data_json_bigrams_bad_grades,
+                                                  'data_bigrams_good_grades': data_json_bigrams_good_grades})
 
 
+@login_required
+def histogram_view(request):
+    user = get_object_or_404(User, id=request.user.id)
+    profile = get_object_or_404(UserProfile, user=user)
+    data_analyze = get_object_or_404(DataAnalyze, name_company=profile.name_company, title='rating_distribution')
+    data = {
+        'labels': data_analyze.labels,
+        'values': data_analyze.values,
+        'label': data_analyze.name_analyze
+    }
+    data_json = json.dumps(data)
+
+    print(data_json)
+
+    return render(request, 'web/histogram_page.html', {'data': data_json})
